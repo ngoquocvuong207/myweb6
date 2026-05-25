@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website vs Trang web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50: #E6F1FB;
+      --blue-100: #B5D4F4;
+      --blue-600: #185FA5;
+      --blue-800: #0C447C;
+      --teal-50: #E1F5EE;
+      --teal-100: #9FE1CB;
+      --teal-600: #0F6E56;
+      --gray-50: #F1EFE8;
+      --gray-100: #D3D1C7;
+      --gray-400: #888780;
+      --gray-800: #2C2C2A;
+      --text-primary: #1a1a18;
+      --text-secondary: #5F5E5A;
+      --text-tertiary: #888780;
+      --bg-primary: #ffffff;
+      --bg-secondary: #F7F6F2;
+      --border: rgba(0,0,0,0.12);
+      --radius-md: 8px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      max-width: 760px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Diagram */
+    .diagram {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+    .diagram-inner {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .site-box {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: var(--radius-lg);
+      padding: 0.75rem 2rem;
+      text-align: center;
+      width: 100%;
+      max-width: 300px;
+    }
+    .site-box-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--blue-600);
+      margin-bottom: 4px;
+    }
+    .site-box-desc {
+      font-size: 13px;
+      color: var(--blue-800);
+    }
+    .arrow-down {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid var(--blue-100);
+      margin: 10px 0;
+    }
+    .pages-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+      max-width: 340px;
+    }
+    .page-box {
+      background: var(--teal-50);
+      border: 1px solid var(--teal-100);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.75rem;
+      flex: 1;
+      text-align: center;
+    }
+    .page-box-icon { font-size: 18px; margin-bottom: 4px; }
+    .page-box-label {
+      font-size: 11px;
+      color: var(--teal-600);
+      font-weight: 500;
+    }
+    .diagram-caption {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    /* Compare grid */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .col {
+      padding: 1.5rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .col:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .col-icon {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .icon-web  { background: var(--blue-50); }
+    .icon-page { background: var(--teal-50); }
+    .col-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .col-sub   { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+    .attr-row {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .attr-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .attr-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-tertiary);
+      margin-bottom: 5px;
+    }
+    .attr-val {
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 5px;
+    }
+    .badge-blue { background: var(--blue-50); color: var(--blue-600); }
+    .badge-teal { background: var(--teal-50); color: var(--teal-600); }
+
+    /* Analogy */
+    .analogy-box {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ana-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+    .ana-icon { font-size: 22px; margin-bottom: 6px; }
+    .ana-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .ana-text {
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+    .ana-text strong { font-weight: 600; }
+
+    /* Summary */
+    .summary-bar {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+      background: var(--bg-primary);
+    }
+    .summary-bar p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .summary-bar strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .compare-grid { grid-template-columns: 1fr; }
+      .col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .analogy-box { grid-template-columns: 1fr; }
+      .pages-row { flex-direction: column; max-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Website vs. Trang web</h1>
+    <p>Hai khái niệm thường bị nhầm lẫn — nhưng mối quan hệ giữa chúng rất rõ ràng.</p>
+  </div>
+
+  <!-- Diagram -->
+  <div class="diagram">
+    <div class="diagram-inner">
+      <div class="site-box">
+        <div class="site-box-label">🌐 Website</div>
+        <div class="site-box-desc">Tập hợp nhiều trang web</div>
+      </div>
+      <div class="arrow-down"></div>
+      <div class="pages-row">
+        <div class="page-box">
+          <div class="page-box-icon">📄</div>
+          <div class="page-box-label">Trang chủ</div>
+        </div>
+        <div class="page-box">
+          <div class="page-box-icon">📄</div>
+          <div class="page-box-label">Giới thiệu</div>
+        </div>
+        <div class="page-box">
+          <div class="page-box-icon">📄</div>
+          <div class="page-box-label">Liên hệ</div>
+        </div>
+      </div>
+      <div class="diagram-caption">Một website chứa nhiều trang web liên kết với nhau dưới cùng tên miền</div>
+    </div>
+  </div>
+
+  <!-- Compare -->
+  <div class="compare-grid">
+    <div class="col">
+      <div class="col-header">
+        <div class="col-icon icon-web">🌐</div>
+        <div>
+          <div class="col-title">Website</div>
+          <div class="col-sub">Toàn bộ hệ thống</div>
+        </div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Định nghĩa</div>
+        <div class="attr-val">Tập hợp các trang web liên kết, lưu trên máy chủ và truy cập qua cùng một tên miền.</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Ví dụ</div>
+        <div class="attr-val">wikipedia.org, youtube.com, vnexpress.net</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Đặc điểm</div>
+        <div class="attr-val">Có tên miền riêng, bao gồm nhiều trang, có thanh điều hướng chung.</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Bản chất</div>
+        <span class="badge badge-blue">Tập hợp / Hệ thống</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-header">
+        <div class="col-icon icon-page">📄</div>
+        <div>
+          <div class="col-title">Trang web</div>
+          <div class="col-sub">Một đơn vị nội dung</div>
+        </div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Định nghĩa</div>
+        <div class="attr-val">Một tài liệu đơn lẻ viết bằng HTML, hiển thị trên trình duyệt qua một URL cụ thể.</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Ví dụ</div>
+        <div class="attr-val">wikipedia.org/wiki/Mặt_Trời — một bài viết cụ thể</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Đặc điểm</div>
+        <div class="attr-val">Có URL riêng, chứa văn bản, hình ảnh, video và nội dung cụ thể.</div>
+      </div>
+      <div class="attr-row">
+        <div class="attr-label">Bản chất</div>
+        <span class="badge badge-teal">Đơn vị / Tài liệu</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analogy -->
+  <div class="analogy-box">
+    <div class="ana-card">
+      <div class="ana-icon">📚</div>
+      <div class="ana-label">Ví von dễ nhớ</div>
+      <div class="ana-text"><strong>Website</strong> giống như một cuốn <strong>sách</strong>, còn <strong>trang web</strong> giống như từng <strong>trang</strong> trong cuốn sách đó.</div>
+    </div>
+    <div class="ana-card">
+      <div class="ana-icon">🏢</div>
+      <div class="ana-label">Ví von khác</div>
+      <div class="ana-text"><strong>Website</strong> như một <strong>tòa nhà</strong>, còn <strong>trang web</strong> là từng <strong>phòng</strong> bên trong tòa nhà đó.</div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-bar">
+    <p>Mỗi <strong>website</strong> gồm ít nhất một <strong>trang web</strong>. Nhưng một trang web riêng lẻ không phải là cả một website.<br>Ngắn gọn: <strong>website ⊃ trang web</strong>.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
