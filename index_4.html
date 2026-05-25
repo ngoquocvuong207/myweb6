@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebLearn — Học HTML</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg: #0f0f0e;
+      --bg2: #1a1a18;
+      --bg3: #242422;
+      --line: #2e2e2c;
+      --text: #e8e8e0;
+      --muted: #7a7a70;
+      --accent: #4f8fff;
+      --accent2: #3dffa0;
+      --accent3: #ffb830;
+      --white: #ffffff;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--bg3);
+      color: var(--white);
+    }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--white) !important;
+      border-radius: 8px;
+      padding: 7px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── SECTIONS ── */
+    section {
+      display: none;
+      animation: fadeIn 0.25s ease;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ── HERO (Trang chủ) ── */
+    .hero-tag {
+      display: inline-block;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent2);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: var(--bg3);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--muted); }
+
+    /* stats row */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* topics grid */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .topic-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .topic-card:hover { border-color: var(--accent); background: var(--bg3); }
+    .topic-icon { font-size: 24px; margin-bottom: 10px; }
+    .topic-name { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .topic-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .topic-badge {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: var(--bg3);
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    /* ── GIỚI THIỆU ── */
+    .about-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .about-text h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.75; }
+    .about-visual {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+    .about-visual .tag { color: #f0997b; }
+    .about-visual .attr { color: #9fe1cb; }
+    .about-visual .val { color: #fac775; }
+    .about-visual .comment { color: #555; }
+
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .team-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .av1 { background: #1a4fa0; }
+    .av2 { background: #0d6e56; }
+    .av3 { background: #7b3a8f; }
+    .team-name { font-size: 14px; font-weight: 600; color: var(--white); }
+    .team-role { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    /* ── LIÊN HỆ ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .contact-info h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .contact-info p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .ci-icon {
+      width: 36px; height: 36px;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .ci-label { font-size: 11px; color: var(--muted); }
+    .ci-val { font-size: 14px; color: var(--text); font-weight: 500; }
+
+    /* FORM */
+    .form-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { background: var(--bg3); }
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .toast {
+      display: none;
+      margin-top: 12px;
+      background: var(--bg3);
+      border: 1px solid #3dffa050;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--accent2);
+      text-align: center;
+    }
+
+    /* page label */
+    .page-eyebrow {
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .about-hero, .contact-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 2px; }
+      .nav-links a { padding: 7px 10px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Web<span>Learn</span></div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="go('home',this)">Trang chủ</a></li>
+    <li><a href="#" onclick="go('about',this)">Giới thiệu</a></li>
+    <li><a href="#" onclick="go('contact',this)">Liên hệ</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="go('contact',this);return false">Bắt đầu →</a>
+</nav>
+
+<!-- TRANG CHỦ -->
+<section id="home" class="active">
+  <div class="hero-tag">✦ Nền tảng học lập trình web</div>
+  <div class="hero">
+    <h1>Học <em>HTML & Web</em><br>từ con số 0</h1>
+    <p>Nắm vững nền tảng lập trình web với các bài học thực hành, ví dụ trực tiếp và lộ trình rõ ràng dành cho người mới bắt đầu.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="go('about', document.querySelector('.nav-links a:nth-child(2) a'))">Khám phá ngay</button>
+      <button class="btn-secondary" onclick="go('contact', null)">Liên hệ tư vấn</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num">48+</div>
+      <div class="stat-label">Bài học thực hành</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1.2k</div>
+      <div class="stat-label">Học viên đang học</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Miễn phí hoàn toàn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Đánh giá trung bình</div>
+    </div>
+  </div>
+
+  <div class="section-title">Chủ đề nổi bật</div>
+  <div class="topics">
+    <div class="topic-card">
+      <div class="topic-icon">🏗️</div>
+      <div class="topic-name">Cấu trúc HTML</div>
+      <div class="topic-desc">Thẻ, thuộc tính, phần tử — nền tảng của mọi trang web.</div>
+      <span class="topic-badge">12 bài học</span>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🎨</div>
+      <div class="topic-name">CSS & Styling</div>
+      <div class="topic-desc">Màu sắc, bố cục, Flexbox, Grid — làm đẹp trang web.</div>
+      <span class="topic-badge">15 bài học</span>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">⚡</div>
+      <div class="topic-name">JavaScript cơ bản</div>
+      <div class="topic-desc">Biến, hàm, sự kiện — thêm tương tác cho trang web.</div>
+      <span class="topic-badge">18 bài học</span>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">🌐</div>
+      <div class="topic-name">Web hoạt động thế nào</div>
+      <div class="topic-desc">Browser, server, HTTP — hiểu bức tranh toàn cảnh.</div>
+      <span class="topic-badge">5 bài học</span>
+    </div>
+  </div>
+</section>
+
+<!-- GIỚI THIỆU -->
+<section id="about">
+  <div class="page-eyebrow">// about us</div>
+  <div class="about-hero">
+    <div class="about-text">
+      <h2>Chúng tôi là ai?</h2>
+      <p>WebLearn là nền tảng học lập trình web miễn phí, được xây dựng bởi những lập trình viên đam mê giáo dục. Mục tiêu của chúng tôi là giúp bất kỳ ai cũng có thể học web từ đầu một cách dễ dàng và vui vẻ.</p>
+    </div>
+    <div class="about-visual">
+      <span class="comment">&lt;!-- Sứ mệnh của chúng tôi --&gt;</span><br>
+      <span class="tag">&lt;mission</span><br>
+      &nbsp;&nbsp;<span class="attr">goal</span>=<span class="val">"free-education"</span><br>
+      &nbsp;&nbsp;<span class="attr">lang</span>=<span class="val">"vi"</span><br>
+      &nbsp;&nbsp;<span class="attr">since</span>=<span class="val">"2024"</span><br>
+      <span class="tag">&gt;</span><br>
+      &nbsp;&nbsp;Học coding<br>
+      &nbsp;&nbsp;dành cho tất cả<br>
+      <span class="tag">&lt;/mission&gt;</span>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-bottom:1rem">Đội ngũ</div>
+  <div class="team" style="margin-bottom:2.5rem">
+    <div class="team-card">
+      <div class="avatar av1">AN</div>
+      <div class="team-name">Anh Nguyễn</div>
+      <div class="team-role">Founder & Dev</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar av2">TL</div>
+      <div class="team-name">Thảo Lê</div>
+      <div class="team-role">Curriculum Designer</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar av3">MP</div>
+      <div class="team-name">Minh Phạm</div>
+      <div class="team-role">Frontend Engineer</div>
+    </div>
+  </div>
+
+  <div class="section-title">Lộ trình học tập</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:32px;height:32px;border-radius:50%;background:#4f8fff20;border:1px solid #4f8fff50;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0">1</div>
+      <div style="padding-top:6px">
+        <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px">Nền tảng HTML</div>
+        <div style="font-size:13px;color:var(--muted)">Học cấu trúc trang web, thẻ cơ bản, liên kết, hình ảnh.</div>
+      </div>
+    </div>
+    <div style="width:1px;height:20px;background:var(--line);margin-left:15px"></div>
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:32px;height:32px;border-radius:50%;background:#3dffa020;border:1px solid #3dffa050;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent2);flex-shrink:0">2</div>
+      <div style="padding-top:6px">
+        <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px">Làm đẹp với CSS</div>
+        <div style="font-size:13px;color:var(--muted)">Màu sắc, font chữ, bố cục Flexbox và Grid.</div>
+      </div>
+    </div>
+    <div style="width:1px;height:20px;background:var(--line);margin-left:15px"></div>
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:32px;height:32px;border-radius:50%;background:#ffb83020;border:1px solid #ffb83050;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent3);flex-shrink:0">3</div>
+      <div style="padding-top:6px">
+        <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px">Tương tác với JavaScript</div>
+        <div style="font-size:13px;color:var(--muted)">Xử lý sự kiện, DOM, fetch API và dự án thực tế.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIÊN HỆ -->
+<section id="contact">
+  <div class="page-eyebrow">// contact</div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>Liên hệ với chúng tôi</h2>
+      <p>Có câu hỏi về khóa học hoặc muốn hợp tác? Gửi tin nhắn và chúng tôi sẽ phản hồi trong vòng 24 giờ.</p>
+      <div class="contact-item">
+        <div class="ci-icon">📧</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-val">hello@weblearn.vn</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">💬</div>
+        <div>
+          <div class="ci-label">Discord cộng đồng</div>
+          <div class="ci-val">discord.gg/weblearn</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Địa điểm</div>
+          <div class="ci-val">Hà Nội, Việt Nam</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">🕐</div>
+        <div>
+          <div class="ci-label">Giờ hỗ trợ</div>
+          <div class="ci-val">T2–T6, 8:00–18:00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" id="fname" placeholder="Nguyễn Văn A">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="femail" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label>Chủ đề</label>
+        <select id="ftopic">
+          <option value="">— Chọn chủ đề —</option>
+          <option>Hỏi về khóa học</option>
+          <option>Báo lỗi bài tập</option>
+          <option>Hợp tác & Tài trợ</option>
+          <option>Khác</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nội dung</label>
+        <textarea id="fmsg" placeholder="Viết tin nhắn của bạn..."></textarea>
+      </div>
+      <button class="form-submit" onclick="sendForm()">Gửi tin nhắn →</button>
+      <div class="toast" id="toast">✓ Đã gửi thành công! Chúng tôi sẽ phản hồi sớm nhất.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function go(id, el) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    if (el && el.tagName === 'A') el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.nav-links a').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  function sendForm() {
+    var name = document.getElementById('fname').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    if (!name || !email) {
+      alert('Vui lòng nhập tên và email!');
+      return;
+    }
+    var toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    document.getElementById('fname').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fmsg').value = '';
+    document.getElementById('ftopic').value = '';
+    setTimeout(function(){ toast.style.display = 'none'; }, 4000);
+  }
+</script>
+</body>
+</html>
